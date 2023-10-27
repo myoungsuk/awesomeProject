@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles</title>
+</head>
+<body>
+<h1>Articles</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Created At</th>
+        <th>Created By</th>
+        <!-- 추가적인 필드는 필요에 따라 확장하실 수 있습니다 -->
+    </tr>
+    </thead>
+    <tbody>
+    {{range .}}
+    <tr>
+        <td>{{.ID}}</td>
+        <td>{{.Title}}</td>
+        <td>{{.Content}}</td>
+        <td>{{.CreatedAt}}</td>
+        <td>{{.CreatedBy}}</td>
+        <!-- 추가적인 필드는 필요에 따라 확장하실 수 있습니다 -->
+    </tr>
+    {{end}}
+    </tbody>
+</table>
+</body>
+</html>

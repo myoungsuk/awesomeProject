@@ -1,0 +1,101 @@
+# 디버그 로그 활성화 여부
+debug: false
+
+# 액추에이터 엔드포인트 활성화
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# 로그 설정
+logging:
+  level:
+    # com.emesys.hompage 패키지에서 발생하는 디버그 로그를 출력합니다.
+    com.emesys.hompage: debug
+    # 스프링 웹을 사용할 때 발생하는 디버그 로그를 출력합니다.
+    org.springframework.web.servlet: debug
+    # 하이버네이트에서 발생하는 SQL 쿼리 바인딩에 대한 로그를 자세히 출력합니다.
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+# 데이터베이스 연결 설정
+spring:
+  datasource:
+    # 로컬 DB URL
+    url: jdbc:mysql://localhost:3306/board
+    # 로컬 DB 사용자 이름
+    username: 'root'
+    # 로컬 DB 비밀번호
+    password: 'myoung1249!'
+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  jpa:
+    # 뷰에서 엔티티를 사용할 수 있게 해줍니다.
+    open-in-view: false
+    # 데이터베이스 초기화를 지연시킵니다.
+    defer-datasource-initialization: true
+    # 테이블 생성
+    hibernate.ddl-auto: create
+    # SQL 로그 출력
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.default_batch_fetch_size: 100
+      hibernate:
+        dialect:
+          MySQL8Dialect: org.hibernate.dialect.MySQL8Dialect
+    # H2 콘솔을 비활성화합니다.
+  h2:
+    console:
+      enabled: true
+  sql.init.mode: always
+
+  # Spring Data REST 관련 설정입니다.
+  data.rest:
+    base-path: /api
+    detection-strategy: annotated
+
+
+  # Thymeleaf3 관련 설정입니다.
+  #configuration process 디펜던시 써보기
+  thymeleaf3:
+    decoupled-logic: true
+
+  security:
+        oauth2:
+          client:
+            registration:
+              kakao:
+                client-id: ${KAKAO_OAUTH_CLIENT_ID}
+                client-secret: ${KAKAO_OAUTH_CLIENT_SECRET}
+                authorization-grant-type: authorization_code
+                redirect-uri: "{baseUrl}/login/oauth2/code/kakao"
+                client-authentication-method: POST
+            provider:
+              kakao:
+                authorization-uri: https://kauth.kakao.com/oauth/authorize
+                token-uri: https://kauth.kakao.com/oauth/token
+                user-info-uri: https://kapi.kakao.com/v2/user/me
+                user-name-attribute: id
+
+## Heroku 프로파일 활성화 시 데이터베이스 연결 설정입니다.
+#---
+#spring:
+#  config.activate.on-profile: heroku
+#  datasource:
+#    url: ${JAWSDB_URL}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    # 테이블 생성
+#    hibernate.ddl-auto: create
+#  # 애플리케이션 시작 시 SQL 스크립트를 실행합니다.
+#  sql.init.mode: always
+#---
+#
+---
+
+spring:
+  config.activate.on-profile: test
+  datasource.url: jdbc:h2:mem:testdb

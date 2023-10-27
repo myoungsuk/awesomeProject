@@ -1,0 +1,18 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="4">
+            <item index="0" class="java.lang.String" itemvalue="{{if" />
+            <item index="1" class="java.lang.String" itemvalue="$searchType.Name" />
+            <item index="2" class="java.lang.String" itemvalue="eq" />
+            <item index="3" class="java.lang.String" itemvalue="$.param.searchType}}selected{{end}}" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+  </profile>
+</component>
